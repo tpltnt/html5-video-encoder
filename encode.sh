@@ -5,11 +5,34 @@
 # but please don’t blame me
 
 check_ffmpeg(){
-    if [[ -z "`which ffmpeg`" ]]
+    if [ -z "`which ffmpeg`" ];
     then
 	echo "no ffmpeg installation found" >&2
 	exit 1
     fi
+
+    webmencoding=`ffmpeg -formats | grep "WebM file format" | grep E`
+    if [ -z "$webmencoding" ];
+    then
+	echo "no WebM encoding possible" >&2
+	exit 1
+    fi
+
+    h264encoding=`ffmpeg -formats | grep "h264" | grep E`
+    if [ -z "$h264encoding" ];
+    then
+        echo "no h264 encoding possible" >&2
+	exit 1
+    fi
+
+    oggencoding=`ffmpeg -formats | grep "ogg" | grep E`
+    if [ -z "$oggencoding" ];
+    then
+        echo "no Ogg encoding possible" >&2
+	exit 1
+    fi
+
+
 }
 
 # sanity checks

@@ -4,6 +4,14 @@
 # and do whatever you want
 # but please don’t blame me
 
+check_ffmpeg(){
+    if [[ -z "`which ffmpeg`" ]]
+    then
+	echo "no ffmpeg installation found" >&2
+	exit 1
+    fi
+}
+
 # sanity checks
 if [ ! -e $1 ];
 then
@@ -25,3 +33,4 @@ then
     echo "given file is of size zero" >&2
 fi
 
+check_ffmpeg
